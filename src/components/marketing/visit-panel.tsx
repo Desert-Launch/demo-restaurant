@@ -113,7 +113,7 @@ export function VisitPanel() {
                   ))}
                 </ul>
               </div>
-              <p className="text-xs text-salt-600">
+              <p className="text-xs text-salt-400">
                 Map deliberately left out — this is a demo site and the address
                 is invented.
               </p>

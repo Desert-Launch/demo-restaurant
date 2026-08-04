@@ -77,7 +77,7 @@ export function ConfirmationStep({
           </Button>
         </div>
 
-        <p className="mt-8 text-xs text-salt-600">
+        <p className="mt-8 text-xs text-salt-400">
           This booking is now in the staff view at{" "}
           <Link
             href="/admin/reservations"

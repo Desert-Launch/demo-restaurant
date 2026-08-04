@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
@@ -35,6 +35,7 @@ export function CheckoutWizard() {
   const { lines, isEmpty, totals } = useCart(type);
   const { clear } = useCartActions();
   const place = usePlaceOrder();
+  const flowRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 
   if (!now) {
@@ -66,7 +67,12 @@ export function CheckoutWizard() {
 
   function goTo(next: number) {
     setStep(next);
-    document.getElementById("checkout-flow")?.scrollIntoView({ block: "start" });
+    // Move focus to the step region rather than leaving it on the button that
+    // has just been replaced.
+    requestAnimationFrame(() => {
+      flowRef.current?.scrollIntoView({ block: "start" });
+      flowRef.current?.focus();
+    });
   }
 
   function handlePlace() {
@@ -116,7 +122,12 @@ export function CheckoutWizard() {
     : { duration: 0.32, ease: [0.2, 0.8, 0.2, 1] as const };
 
   return (
-    <div id="checkout-flow" className="scroll-mt-24">
+    <div
+      ref={flowRef}
+      tabIndex={-1}
+      aria-label={`Checkout, step ${step} of ${STEPS.length}: ${STEPS[step - 1]}`}
+      className="scroll-mt-24 outline-none"
+    >
       <StepRail steps={STEPS} current={step} />
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">

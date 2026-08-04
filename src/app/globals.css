@@ -167,7 +167,9 @@
   --accent: var(--sf-oud-750);
   --accent-foreground: var(--sf-salt-50);
 
-  --destructive: var(--sf-rumman-500);
+  /* rumman-600 rather than 500: destructive buttons put salt-50 on this, and
+     500 only reaches 3.3:1 against it. */
+  --destructive: var(--sf-rumman-600);
   --destructive-foreground: var(--sf-salt-50);
 
   --border: var(--sf-oud-700);

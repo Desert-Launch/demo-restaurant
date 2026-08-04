@@ -57,7 +57,7 @@ export function ConfirmDialog({
               onConfirm();
             }}
             disabled={pending}
-            className="bg-rumman-500 text-salt-50 hover:bg-rumman-600"
+            className="bg-rumman-600 text-salt-50 hover:bg-rumman-700"
           >
             {confirmLabel}
           </AlertDialogAction>

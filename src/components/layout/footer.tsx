@@ -78,7 +78,7 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="sf-seam mt-14 pt-6 text-xs text-salt-600">
+        <p className="sf-seam mt-14 pt-6 text-xs text-salt-400">
           A fictional restaurant, built as a demo. Nothing here is emailed,
           charged or sent anywhere, and the data resets when you refresh.
         </p>

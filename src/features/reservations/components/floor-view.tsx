@@ -51,7 +51,7 @@ export function FloorView({
                 className="py-1.5 text-left text-xs font-normal text-salt-300"
               >
                 {table.label}
-                <span className="tnum ml-1 text-salt-600">×{table.count}</span>
+                <span className="tnum ml-1 text-salt-400">×{table.count}</span>
               </th>
               {slots.map((slot) => {
                 const usage = slot.usage.find(

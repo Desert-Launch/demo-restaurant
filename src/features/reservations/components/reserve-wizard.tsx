@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { startOfDay } from "date-fns";
 import { toast } from "sonner";
@@ -31,6 +31,7 @@ export function ReserveWizard() {
   const [guest, setGuest] = useState<GuestDetailsValues | null>(null);
   const [booked, setBooked] = useState<Reservation | null>(null);
 
+  const flowRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const book = useBookReservation();
 
@@ -49,9 +50,13 @@ export function ReserveWizard() {
 
   function goTo(next: number) {
     setStep(next);
-    // Send focus back up so the next step is read from its heading rather than
-    // from wherever the last button happened to be.
-    document.getElementById("reserve-flow")?.scrollIntoView({ block: "start" });
+    // Move focus to the step region rather than leaving it on the button that
+    // has just been replaced — otherwise a screen reader stays silent about
+    // the fact that the whole step changed.
+    requestAnimationFrame(() => {
+      flowRef.current?.scrollIntoView({ block: "start" });
+      flowRef.current?.focus();
+    });
   }
 
   function handleConfirm() {
@@ -99,7 +104,12 @@ export function ReserveWizard() {
     : { duration: 0.32, ease: [0.2, 0.8, 0.2, 1] as const };
 
   return (
-    <div id="reserve-flow" className="scroll-mt-24">
+    <div
+      ref={flowRef}
+      tabIndex={-1}
+      aria-label={`Booking, step ${step} of ${STEPS.length}: ${STEPS[step - 1]}`}
+      className="scroll-mt-24 outline-none"
+    >
       <StepRail steps={STEPS} current={step} />
 
       <div className="mt-12">

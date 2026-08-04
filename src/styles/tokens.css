@@ -29,8 +29,8 @@
   --sf-salt-100: #dde7e2;
   --sf-salt-200: #c4d2cc;
   --sf-salt-300: #a7b9b2;
-  --sf-salt-400: #8aa099; /* muted text (AA on --sf-oud-950) */
-  --sf-salt-600: #5d7169; /* rules and disabled only, never body copy */
+  --sf-salt-400: #8aa099; /* muted text — the floor for copy, 6.9:1 on oud-950 */
+  --sf-salt-600: #5d7169; /* 3.6:1 — status dots and rules only, never text */
 
   /* --- Saffron: the primary accent. Marigold, not orange. ------------ */
   --sf-saffron-200: #fdeeb4;
@@ -46,10 +46,10 @@
      in the admin; the two never appear in the same context, and destructive
      uses always carry an icon and a verb as well as the colour. */
   --sf-rumman-200: #fbc9cf;
-  --sf-rumman-300: #f79aa6;
-  --sf-rumman-500: #e4526a;
-  --sf-rumman-600: #c93a53;
-  --sf-rumman-700: #9e2740;
+  --sf-rumman-300: #f79aa6; /* 9.3:1 on oud-950 — the one safe for text */
+  --sf-rumman-500: #e4526a; /* dots and bars only: 3.3:1 under white text */
+  --sf-rumman-600: #b8304a; /* destructive button ground, 5.3:1 under salt-50 */
+  --sf-rumman-700: #8f2039; /* its hover, 7.7:1 */
   --sf-rumman-950: #2c0b13;
 
   /* --- Mint: confirmed, seated, ready, vegetarian -------------------- */

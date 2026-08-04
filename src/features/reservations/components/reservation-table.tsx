@@ -323,7 +323,7 @@ export function ReservationTable() {
                           </span>
                         ) : null}
                         {reservation.staffNote ? (
-                          <span className="mt-1 block text-pretty text-salt-600">
+                          <span className="mt-1 block text-pretty text-salt-400">
                             {reservation.staffNote}
                           </span>
                         ) : null}

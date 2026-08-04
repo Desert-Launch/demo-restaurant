@@ -112,7 +112,7 @@ export function OrderBoard() {
                   ))}
                 </div>
               ) : column.orders.length === 0 ? (
-                <p className="px-1 py-6 text-center text-xs text-salt-600">
+                <p className="px-1 py-6 text-center text-xs text-salt-400">
                   {emptyLine(column.status)}
                 </p>
               ) : (
