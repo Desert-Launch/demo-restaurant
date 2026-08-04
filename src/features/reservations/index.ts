@@ -45,7 +45,11 @@ export {
   type ReservationFormValues,
 } from "./schema";
 export { OCCASION_LABELS, RESERVATION_STATUS_META } from "./status";
+export { CancelReservationDialog } from "./components/cancel-reservation-dialog";
 export { DayRail } from "./components/day-rail";
+export { FloorView } from "./components/floor-view";
+export { ReservationFormDialog } from "./components/reservation-form-dialog";
+export { ReservationTable } from "./components/reservation-table";
 export { ReserveWizard } from "./components/reserve-wizard";
 export { SlotRail } from "./components/slot-rail";
 export { StepRail } from "./components/step-rail";
