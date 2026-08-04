@@ -10,7 +10,7 @@ import { HOUSE } from "@/lib/house";
 
 const FACTS = [
   { value: "38", label: "dishes on the card" },
-  { value: "19", label: "tables in the room" },
+  { value: "40", label: "covers around the courtyard" },
   { value: "16:00", label: "the coals are lit" },
 ] as const;
 

@@ -491,67 +491,135 @@ type GuestKey = keyof typeof GUESTS;
 
 /* --- Reservations --------------------------------------------------------- */
 
-interface ReservationSeed {
-  /** Days from today. */
-  day: number;
-  hour: number;
-  minute: 0 | 30;
-  partySize: number;
-  guest: GuestKey;
+/**
+ * The book, as terse tuples: [day offset, time, party size, guest, extras?].
+ *
+ * Written out slot by slot rather than generated, and deliberately concentrated
+ * where a restaurant actually fills: dinner between half past seven and nine.
+ * Tomorrow at 20:00 takes every one of the eleven tables, so the booking rail
+ * has a genuinely full slot to show, and today at 20:00 leaves exactly one
+ * two-top — which means a couple can still book it and a party of three
+ * cannot. Those two slots are the demo.
+ */
+interface ReservationExtras {
   occasion?: Occasion;
   requests?: string;
   staffNote?: string;
-  /** Overrides the clock-derived status, for the ones worth showing on purpose. */
+  /** Overrides the clock-derived status, for the rows worth showing on purpose. */
   force?: ReservationStatus;
 }
 
-const RESERVATIONS: readonly ReservationSeed[] = [
-  // Today, lunch.
-  { day: 0, hour: 12, minute: 0, partySize: 2, guest: "priya" },
-  { day: 0, hour: 12, minute: 0, partySize: 4, guest: "rashid", requests: "Table away from the grill if there is one." },
-  { day: 0, hour: 12, minute: 30, partySize: 6, guest: "daniel", occasion: "business", staffNote: "Regular. Splits the bill four ways." },
-  { day: 0, hour: 13, minute: 0, partySize: 2, guest: "mei" },
-  { day: 0, hour: 13, minute: 0, partySize: 3, guest: "amal", force: "no-show", staffNote: "Second no-show this month." },
-  { day: 0, hour: 13, minute: 30, partySize: 4, guest: "james" },
-  { day: 0, hour: 14, minute: 0, partySize: 2, guest: "sofia", requests: "One of us is coeliac." },
-  { day: 0, hour: 14, minute: 30, partySize: 5, guest: "hind" },
+type ReservationRow = readonly [
+  day: number,
+  time: string,
+  partySize: number,
+  guest: GuestKey,
+  extras?: ReservationExtras,
+];
 
-  // Today, dinner. This is the service the demo usually opens on.
-  { day: 0, hour: 18, minute: 30, partySize: 2, guest: "mariam", occasion: "anniversary", requests: "Quiet corner if you have one." },
-  { day: 0, hour: 18, minute: 30, partySize: 4, guest: "youssef" },
-  { day: 0, hour: 19, minute: 0, partySize: 6, guest: "aisha", occasion: "birthday", requests: "Bringing a cake — can it be kept in the fridge?" },
-  { day: 0, hour: 19, minute: 0, partySize: 2, guest: "karim" },
-  { day: 0, hour: 19, minute: 0, partySize: 4, guest: "nadia" },
-  { day: 0, hour: 19, minute: 30, partySize: 2, guest: "omar", force: "cancelled" },
-  { day: 0, hour: 19, minute: 30, partySize: 8, guest: "layla", occasion: "business", staffNote: "Wants the long table. Confirmed by phone." },
-  { day: 0, hour: 20, minute: 0, partySize: 4, guest: "hassan" },
-  { day: 0, hour: 20, minute: 0, partySize: 2, guest: "rana" },
-  { day: 0, hour: 20, minute: 0, partySize: 6, guest: "tariq", requests: "No nuts at the table — allergy." },
-  { day: 0, hour: 20, minute: 30, partySize: 2, guest: "dana" },
-  { day: 0, hour: 20, minute: 30, partySize: 4, guest: "fatima" },
-  { day: 0, hour: 21, minute: 0, partySize: 2, guest: "sami" },
-  { day: 0, hour: 21, minute: 30, partySize: 4, guest: "elias", occasion: "birthday" },
-  { day: 0, hour: 22, minute: 0, partySize: 2, guest: "noura" },
+const RESERVATIONS: readonly ReservationRow[] = [
+  // --- Today, lunch. Steady rather than busy. ---
+  [0, "12:00", 2, "priya"],
+  [0, "12:00", 4, "rashid", { requests: "A table away from the grill if there is one." }],
+  [0, "12:30", 6, "daniel", { occasion: "business", staffNote: "Regular. Splits the bill four ways." }],
+  [0, "12:30", 2, "mei"],
+  [0, "13:00", 3, "amal", { force: "no-show", staffNote: "Second no-show this month. Card on file next time." }],
+  [0, "13:00", 4, "james"],
+  [0, "13:30", 2, "sofia", { requests: "One of us is coeliac — no bread at the table please." }],
+  [0, "14:00", 5, "hind"],
+  [0, "14:30", 2, "aditya"],
+  [0, "14:30", 4, "elena"],
 
-  // Tomorrow — the 20:00 slot is deliberately close to full so the rail has
-  // something to show when the guest picks a time.
-  { day: 1, hour: 12, minute: 30, partySize: 4, guest: "elena" },
-  { day: 1, hour: 13, minute: 30, partySize: 2, guest: "aditya" },
-  { day: 1, hour: 19, minute: 0, partySize: 6, guest: "ziad", occasion: "anniversary" },
-  { day: 1, hour: 20, minute: 0, partySize: 2, guest: "faisal" },
-  { day: 1, hour: 20, minute: 0, partySize: 2, guest: "reem" },
-  { day: 1, hour: 20, minute: 0, partySize: 4, guest: "grace" },
-  { day: 1, hour: 20, minute: 0, partySize: 4, guest: "yara" },
-  { day: 1, hour: 20, minute: 0, partySize: 6, guest: "mariam" },
-  { day: 1, hour: 20, minute: 0, partySize: 8, guest: "hassan", occasion: "business" },
-  { day: 1, hour: 21, minute: 0, partySize: 4, guest: "james" },
+  // --- Today, dinner. 19:30 and 20:00 are the crush. ---
+  [0, "18:30", 2, "mariam", { occasion: "anniversary", requests: "A quiet corner if you have one." }],
+  [0, "18:30", 4, "youssef"],
+  [0, "18:30", 2, "grace"],
 
-  // The days after.
-  { day: 2, hour: 19, minute: 30, partySize: 2, guest: "sofia", occasion: "anniversary" },
-  { day: 2, hour: 20, minute: 30, partySize: 5, guest: "rashid" },
-  { day: 3, hour: 13, minute: 0, partySize: 3, guest: "priya" },
-  { day: 3, hour: 20, minute: 0, partySize: 6, guest: "tariq", occasion: "birthday" },
-  { day: 4, hour: 19, minute: 30, partySize: 2, guest: "dana" },
+  [0, "19:00", 6, "aisha", { occasion: "birthday", requests: "Bringing a cake — can it go in the fridge until after?" }],
+  [0, "19:00", 2, "karim"],
+  [0, "19:00", 4, "nadia"],
+  [0, "19:00", 2, "yara"],
+  [0, "19:00", 4, "ziad"],
+
+  [0, "19:30", 2, "omar", { force: "cancelled", staffNote: "Cancelled the morning of. Nothing owed." }],
+  [0, "19:30", 8, "layla", { occasion: "business", staffNote: "Wants the long table. Confirmed by phone." }],
+  [0, "19:30", 4, "hassan"],
+  [0, "19:30", 2, "rana"],
+  [0, "19:30", 6, "tariq", { requests: "No nuts anywhere near the table — severe allergy." }],
+  [0, "19:30", 2, "dana"],
+  [0, "19:30", 4, "fatima"],
+  [0, "19:30", 2, "sami"],
+  [0, "19:30", 4, "elias"],
+
+  // 20:00 — ten of eleven tables, and the only one left is a two-top.
+  [0, "20:00", 8, "noura", { occasion: "business" }],
+  [0, "20:00", 6, "faisal"],
+  [0, "20:00", 4, "reem"],
+  [0, "20:00", 4, "james"],
+  [0, "20:00", 4, "elena"],
+  [0, "20:00", 4, "sofia"],
+  [0, "20:00", 2, "aditya"],
+  [0, "20:00", 2, "mei"],
+  [0, "20:00", 2, "daniel"],
+  [0, "20:00", 2, "priya"],
+
+  [0, "20:30", 4, "rashid"],
+  [0, "20:30", 2, "mariam"],
+  [0, "20:30", 6, "youssef"],
+  [0, "20:30", 2, "grace"],
+  [0, "20:30", 4, "karim"],
+
+  [0, "21:00", 2, "nadia"],
+  [0, "21:00", 4, "yara"],
+  [0, "21:00", 2, "ziad"],
+
+  [0, "21:30", 2, "hassan"],
+  [0, "21:30", 4, "rana"],
+
+  [0, "22:00", 2, "tariq"],
+
+  // --- Tomorrow. Lunch is light; 20:00 is the slot that has gone. ---
+  [1, "12:30", 4, "elena"],
+  [1, "13:00", 2, "aditya"],
+  [1, "13:30", 6, "daniel", { occasion: "business" }],
+  [1, "14:00", 2, "mei"],
+  [1, "14:30", 4, "james"],
+
+  [1, "19:00", 6, "ziad", { occasion: "anniversary" }],
+  [1, "19:00", 2, "faisal"],
+  [1, "19:00", 4, "reem"],
+
+  // 20:00 — every table in the house. Nothing bookable at any party size.
+  [1, "20:00", 8, "hassan", { occasion: "business", staffNote: "Long table. Set for eight, may be nine." }],
+  [1, "20:00", 6, "mariam"],
+  [1, "20:00", 4, "grace"],
+  [1, "20:00", 4, "yara"],
+  [1, "20:00", 4, "sofia"],
+  [1, "20:00", 4, "priya"],
+  [1, "20:00", 2, "dana"],
+  [1, "20:00", 2, "sami"],
+  [1, "20:00", 2, "elias"],
+  [1, "20:00", 2, "noura"],
+  [1, "20:00", 2, "amal"],
+
+  [1, "21:00", 4, "james"],
+  [1, "21:00", 2, "rashid"],
+  [1, "21:30", 2, "fatima"],
+  [1, "21:30", 4, "layla"],
+
+  // --- The days after, thinning out. ---
+  [2, "19:30", 2, "sofia", { occasion: "anniversary" }],
+  [2, "19:30", 4, "rashid"],
+  [2, "20:00", 6, "tariq", { occasion: "birthday" }],
+  [2, "20:00", 2, "dana"],
+  [2, "20:30", 5, "hind"],
+
+  [3, "13:00", 3, "priya"],
+  [3, "19:30", 2, "mariam"],
+  [3, "20:00", 4, "karim"],
+
+  [4, "19:30", 2, "dana"],
+  [4, "20:00", 4, "faisal"],
 ];
 
 function serviceFor(hour: number): ServiceId {
@@ -559,14 +627,15 @@ function serviceFor(hour: number): ServiceId {
 }
 
 /**
- * Statuses for seeded reservations follow the clock: anything well past is
- * finished, anything in the last couple of hours is on the floor, the rest is
- * still to come. Explicit `force` values win, so the cancelled and no-show
- * rows are always there for the status filter.
+ * Statuses for seeded reservations follow the clock: anything past is finished,
+ * the slot currently running is on the floor, the rest is still to come. The
+ * seated window is deliberately narrow — an eleven-table room cannot have four
+ * services sitting at once. Explicit `force` values win, so the cancelled and
+ * no-show rows are always there for the status filter.
  */
 function statusFor(seatingAt: Date, now: Date): ReservationStatus {
   const minutesAway = (seatingAt.getTime() - now.getTime()) / 60_000;
-  if (minutesAway < -120) return "completed";
+  if (minutesAway < -45) return "completed";
   if (minutesAway < 15) return "seated";
   return "booked";
 }
@@ -574,29 +643,29 @@ function statusFor(seatingAt: Date, now: Date): ReservationStatus {
 export function createSeedReservations(now: Date): Reservation[] {
   const today = startOfDay(now);
 
-  return RESERVATIONS.map((seed, index) => {
-    const seatingAt = addMinutes(
-      addDays(today, seed.day),
-      seed.hour * 60 + seed.minute,
-    );
-    const status = seed.force ?? statusFor(seatingAt, now);
-    const guest = GUESTS[seed.guest];
+  return RESERVATIONS.map((row, index) => {
+    const [day, time, partySize, guestKey, extras = {}] = row;
+    const [hour, minute] = time.split(":").map(Number);
+
+    const seatingAt = addMinutes(addDays(today, day), hour * 60 + minute);
+    const status = extras.force ?? statusFor(seatingAt, now);
+    const guest = GUESTS[guestKey];
 
     return {
-      id: `res_seed_${index.toString().padStart(2, "0")}`,
+      id: `res_seed_${index.toString().padStart(3, "0")}`,
       reference: `SO-${4100 + index * 7}`,
       guest: {
         name: guest.name,
         phone: guest.phone,
         email: emailFor(guest.name),
       },
-      partySize: seed.partySize,
+      partySize,
       seatingAt: seatingAt.toISOString(),
-      service: serviceFor(seed.hour),
+      service: serviceFor(hour),
       status,
-      occasion: seed.occasion ?? "none",
-      specialRequests: seed.requests ?? "",
-      staffNote: seed.staffNote ?? "",
+      occasion: extras.occasion ?? "none",
+      specialRequests: extras.requests ?? "",
+      staffNote: extras.staffNote ?? "",
       createdAt: subDays(seatingAt, 3 + (index % 9)).toISOString(),
       seatedAt:
         status === "seated" || status === "completed"

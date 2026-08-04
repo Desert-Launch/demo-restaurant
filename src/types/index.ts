@@ -105,10 +105,15 @@ export interface TableClass {
   label: string;
 }
 
+/**
+ * Eleven tables, forty covers — the courtyard room as the About page describes
+ * it. Kept small on purpose: a party of six has two tables in the whole house
+ * that will hold them, so the booking rail has something real to say.
+ */
 export const TABLE_STOCK: readonly TableClass[] = [
-  { seats: 2, count: 8, label: "Two-top" },
-  { seats: 4, count: 7, label: "Four-top" },
-  { seats: 6, count: 3, label: "Six-top" },
+  { seats: 2, count: 5, label: "Two-top" },
+  { seats: 4, count: 4, label: "Four-top" },
+  { seats: 6, count: 1, label: "Six-top" },
   { seats: 8, count: 1, label: "The long table" },
 ];
 
