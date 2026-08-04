@@ -1,0 +1,165 @@
+/* ---------------------------------------------------------------------------
+   Saffron & Oud — design tokens
+   ---------------------------------------------------------------------------
+   Single source of truth for colour, type, space, radius, shadow and motion.
+   Components reference these variables (or the Tailwind utilities mapped from
+   them in globals.css). No raw hex values in component files.
+
+   Direction: the dining room at nine. The canvas is a deep green-black — the
+   colour of the room, not of the food — so the two warm accents read as
+   candlelight and spice against it rather than washing warm-on-warm. Saffron
+   is a true marigold rather than an orange; pomegranate carries heat.
+   Structure borrows from printed menu cards (course rails, leader dots) and
+   from mashrabiya latticework, drawn in CSS with no imagery anywhere.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* --- Canvas: oud, a deep green-black ------------------------------- */
+  --sf-oud-950: #08100e; /* page */
+  --sf-oud-900: #0c1614; /* raised band */
+  --sf-oud-850: #101c19; /* inset wells */
+  --sf-oud-800: #14231f; /* cards */
+  --sf-oud-750: #1a2b26; /* card hover */
+  --sf-oud-700: #22362f; /* seams, hairlines */
+  --sf-oud-600: #2f4740; /* strong border, control edge */
+  --sf-oud-500: #456058; /* disabled edge */
+
+  /* --- Salt: cool off-whites for type -------------------------------- */
+  --sf-salt-50: #eef3f0; /* primary text */
+  --sf-salt-100: #dde7e2;
+  --sf-salt-200: #c4d2cc;
+  --sf-salt-300: #a7b9b2;
+  --sf-salt-400: #8aa099; /* muted text (AA on --sf-oud-950) */
+  --sf-salt-600: #5d7169; /* rules and disabled only, never body copy */
+
+  /* --- Saffron: the primary accent. Marigold, not orange. ------------ */
+  --sf-saffron-200: #fdeeb4;
+  --sf-saffron-300: #fbdf7d;
+  --sf-saffron-400: #f8d04a;
+  --sf-saffron-500: #f2c024; /* brand */
+  --sf-saffron-600: #d19f0c;
+  --sf-saffron-800: #6a4f04;
+  --sf-saffron-950: #2a1f03; /* tinted surface */
+
+  /* --- Rumman: pomegranate. Heat, signature, and destructive. --------
+     One red family on purpose. It marks chilli on the menu and cancellation
+     in the admin; the two never appear in the same context, and destructive
+     uses always carry an icon and a verb as well as the colour. */
+  --sf-rumman-200: #fbc9cf;
+  --sf-rumman-300: #f79aa6;
+  --sf-rumman-500: #e4526a;
+  --sf-rumman-600: #c93a53;
+  --sf-rumman-700: #9e2740;
+  --sf-rumman-950: #2c0b13;
+
+  /* --- Mint: confirmed, seated, ready, vegetarian -------------------- */
+  --sf-mint-200: #c6f0dd;
+  --sf-mint-300: #8fe3c0;
+  --sf-mint-500: #4fc79a;
+  --sf-mint-700: #25705a;
+  --sf-mint-950: #082419;
+
+  /* --- Steel: informational. Booked, new, scheduled. ----------------- */
+  --sf-steel-300: #a9cbe6;
+  --sf-steel-500: #6ea6cf;
+  --sf-steel-700: #2f5f80;
+  --sf-steel-950: #0a1a24;
+
+  /* --- Courses: CSS-only plates, one pair per course -----------------
+     Top stop is the dressed surface, bottom stop is the shadow in the bowl.
+     There is no photography in this app; these are the food. */
+  --sf-course-mezze-top: #e8dcb8;
+  --sf-course-mezze-bottom: #7d6c3a;
+  --sf-course-starters-top: #f0c98a;
+  --sf-course-starters-bottom: #85511a;
+  --sf-course-grills-top: #d98a5a;
+  --sf-course-grills-bottom: #38190e;
+  --sf-course-mains-top: #f2cf7a;
+  --sf-course-mains-bottom: #6f4310;
+  --sf-course-desserts-top: #f6d9dd;
+  --sf-course-desserts-bottom: #8d4f5d;
+  --sf-course-drinks-top: #cfe8d4;
+  --sf-course-drinks-bottom: #29513e;
+
+  /* --- Type: display / body / data -----------------------------------
+     Fraunces carries the appetite — a variable serif with soft, slightly
+     wonky terminals, deliberately not the tasteful fine-dining reach. Hanken
+     Grotesk does the reading without arguing with it. IBM Plex Mono handles
+     every price, cover count, code and timestamp (tabular). */
+  /* The --font-sf-* variables are emitted by next/font in app/layout.tsx. */
+  --sf-family-display: var(--font-sf-display), ui-serif, Georgia, serif;
+  --sf-family-body: var(--font-sf-body), ui-sans-serif, system-ui, sans-serif;
+  --sf-family-mono: var(--font-sf-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --sf-text-2xs: 0.6875rem; /* 11 — mono rails, stamps */
+  --sf-text-xs: 0.75rem; /* 12 — chips, table meta */
+  --sf-text-sm: 0.8125rem; /* 13 — secondary copy */
+  --sf-text-base: 0.9375rem; /* 15 — body */
+  --sf-text-lg: 1.0625rem; /* 17 — lead paragraph */
+  --sf-text-xl: 1.375rem; /* 22 — dish name, card title */
+  --sf-text-2xl: 1.75rem; /* 28 — section head */
+  --sf-text-3xl: 2.25rem; /* 36 */
+  --sf-text-4xl: 3rem; /* 48 */
+  --sf-text-5xl: 4rem; /* 64 */
+  --sf-text-6xl: 5.5rem; /* 88 — hero */
+
+  --sf-leading-flat: 0.92;
+  --sf-leading-tight: 1.06;
+  --sf-leading-snug: 1.26;
+  --sf-leading-normal: 1.6;
+  --sf-leading-loose: 1.75;
+
+  --sf-weight-regular: 400;
+  --sf-weight-medium: 500;
+  --sf-weight-semibold: 600;
+  --sf-weight-bold: 700;
+  --sf-weight-black: 900;
+
+  --sf-track-tighter: -0.03em;
+  --sf-track-tight: -0.015em;
+  --sf-track-normal: 0em;
+  --sf-track-wide: 0.05em;
+  --sf-track-widest: 0.18em; /* mono rails, course headings */
+
+  /* --- Space: 4px base ----------------------------------------------- */
+  --sf-space-1: 0.25rem;
+  --sf-space-2: 0.5rem;
+  --sf-space-3: 0.75rem;
+  --sf-space-4: 1rem;
+  --sf-space-5: 1.25rem;
+  --sf-space-6: 1.5rem;
+  --sf-space-8: 2rem;
+  --sf-space-10: 2.5rem;
+  --sf-space-12: 3rem;
+  --sf-space-16: 4rem;
+  --sf-space-20: 5rem;
+  --sf-space-24: 6rem;
+  --sf-space-32: 8rem;
+
+  --sf-container: 80rem;
+  --sf-measure: 34rem; /* the menu-card column: ~62 characters */
+  --sf-gutter: 1.25rem;
+
+  /* --- Radius: architectural. Near-square, with one generous step. ---- */
+  --sf-radius-xs: 2px;
+  --sf-radius-sm: 3px;
+  --sf-radius-md: 6px;
+  --sf-radius-lg: 10px;
+  --sf-radius-xl: 16px;
+  --sf-radius-2xl: 24px;
+  --sf-radius-pill: 999px;
+
+  /* --- Shadow: depth from black, emphasis from the accents ----------- */
+  --sf-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+  --sf-shadow-md: 0 8px 24px -10px rgb(0 0 0 / 0.72);
+  --sf-shadow-lg: 0 30px 72px -26px rgb(0 0 0 / 0.85);
+  --sf-glow-saffron: 0 10px 34px -12px rgb(242 192 36 / 0.38);
+  --sf-glow-rumman: 0 10px 34px -12px rgb(228 82 106 / 0.34);
+
+  /* --- Motion --------------------------------------------------------- */
+  --sf-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --sf-ease-in-out: cubic-bezier(0.6, 0, 0.2, 1);
+  --sf-duration-fast: 120ms;
+  --sf-duration-base: 220ms;
+  --sf-duration-slow: 520ms;
+}
