@@ -14,6 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { CartSheet } from "@/features/cart";
 import { Wordmark } from "./wordmark";
 import { cn } from "@/lib/utils";
 
@@ -54,13 +55,7 @@ export function Navbar() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
-          <Button
-            asChild
-            variant="ghost"
-            className="hidden text-salt-200 hover:text-salt-50 sm:inline-flex"
-          >
-            <Link href="/menu">Order online</Link>
-          </Button>
+          <CartSheet />
           <Button asChild className="hidden sm:inline-flex">
             <Link href="/reserve">Reserve a table</Link>
           </Button>
