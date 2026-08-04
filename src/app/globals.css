@@ -312,14 +312,15 @@
   }
 
   /* The printed-menu device: dish name, leader dots, price. The dots are a
-     real dotted rule that grows to fill whatever gap is left. */
+     real dotted rule that grows to fill whatever gap is left, which is why it
+     is its own element and not a pseudo — it has to sit *between* two
+     siblings, and there is only one ::after to go around. */
   .sf-leader {
     display: flex;
     align-items: baseline;
   }
 
-  .sf-leader::after {
-    content: "";
+  .sf-leader-fill {
     flex: 1 1 auto;
     min-width: var(--sf-space-4);
     margin: 0 var(--sf-space-3) 0.34em;
