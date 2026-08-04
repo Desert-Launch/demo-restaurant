@@ -33,9 +33,11 @@ export {
   type CourseMeta,
   type DietaryFilterId,
 } from "./taxonomy";
+export { AdminMenuTable } from "./components/admin-menu-table";
 export { CourseNav } from "./components/course-nav";
 export { DishRow } from "./components/dish-row";
 export { MenuBoard } from "./components/menu-board";
+export { MenuItemFormDialog } from "./components/menu-item-form-dialog";
 export { Plate } from "./components/plate";
 export { SignatureRail } from "./components/signature-rail";
 export { TagChip } from "./components/tag-chip";

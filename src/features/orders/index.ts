@@ -32,3 +32,8 @@ export {
   ORDER_TYPE_LABELS,
   type OrderStatusMeta,
 } from "./status";
+export { CancelOrderDialog } from "./components/cancel-order-dialog";
+export { OrderBoard } from "./components/order-board";
+export { OrderDetailSheet } from "./components/order-detail-sheet";
+export { OrderTicket } from "./components/order-ticket";
+export { PhoneOrderDialog } from "./components/phone-order-dialog";

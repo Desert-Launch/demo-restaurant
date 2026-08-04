@@ -331,6 +331,11 @@
   .sf-seam {
     border-top: 1px solid var(--sf-oud-700);
   }
+
+  /* Perforation between a ticket's head and its lines, as on the printed kind. */
+  .sf-perf {
+    border-top: 1px dashed var(--sf-oud-600);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
