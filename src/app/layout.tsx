@@ -3,6 +3,7 @@ import { Fraunces, Hanken_Grotesk, IBM_Plex_Mono } from "next/font/google";
 
 import { Providers } from "./providers";
 import { DemoBar } from "@/components/layout/demo-bar";
+import { demoJsonLd, demoMetadata } from "@/lib/desert-launch";
 import "./globals.css";
 
 /* Display: Fraunces — a variable serif with soft, slightly wonky terminals.
@@ -29,14 +30,12 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  // Fictional business, invented contact details: never a search result.
-  robots: { index: false, follow: false },
   title: {
     default: "Saffron & Oud — Levantine and Emirati dining in Dubai",
     template: "%s · Saffron & Oud",
   },
-  description:
-    "Charcoal grills, mezze and saffron rice in Al Fahidi. Reserve a table or order for pickup and delivery across Dubai.",
+  // Share preview, robots, canonical host and the link back to the studio.
+  ...demoMetadata(),
 };
 
 export const viewport: Viewport = {
@@ -60,7 +59,11 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <DemoBar demo="Saffron & Oud" slug="restaurant" />
+        <DemoBar />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(demoJsonLd()) }}
+        />
         <Providers>{children}</Providers>
       </body>
     </html>
