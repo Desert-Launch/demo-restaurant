@@ -7,7 +7,7 @@ import { AdminTopbar } from "@/components/layout/admin-topbar";
 export const metadata: Metadata = {
   title: {
     default: "Staff view",
-    template: "%s · Staff view · Saffron & Oud",
+    template: "%s · Staff view · Demo Restaurant",
   },
   robots: { index: false, follow: false },
 };

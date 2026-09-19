@@ -46,7 +46,7 @@ export function Wordmark({
     >
       <Khatim className="size-6 shrink-0 text-saffron-500 transition-transform duration-(--sf-duration-base) ease-(--sf-ease-out) group-hover:rotate-45" />
       <span className="font-display text-[1.0625rem] leading-none font-semibold tracking-tight">
-        Saffron <span className="text-saffron-500">&amp;</span> Oud
+        Demo <span className="text-saffron-500">Restaurant</span>
       </span>
     </Link>
   );

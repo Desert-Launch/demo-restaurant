@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "A courtyard house in Al Fahidi, one charcoal fire, and a card that runs from Levantine mezze to Emirati machboos.",
+    "A courtyard house in Dubai, one charcoal fire, and a card that runs from Levantine mezze to Emirati machboos.",
 };
 
 const CHAPTERS = [
@@ -44,7 +44,7 @@ export default function AboutPage() {
           A Levantine kitchen that learned to cook like the Gulf
         </h1>
         <p className="mt-6 max-w-xl text-lg text-pretty text-salt-300">
-          Saffron &amp; Oud opened in a wind-tower house in Al Fahidi with one
+          The Demo Restaurant opened in a courtyard house in Dubai with one
           fire, forty covers and a card that has changed about six times since.
         </p>
 

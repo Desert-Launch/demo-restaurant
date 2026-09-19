@@ -26,7 +26,7 @@ export function ChefsNote() {
             </p>
           </blockquote>
           <p className="mt-8 text-sm text-salt-400">
-            Nour Haddad — head chef, in the kitchen since it opened
+            Chef 1 — head chef, in the kitchen since it opened
           </p>
         </div>
       </PageContainer>

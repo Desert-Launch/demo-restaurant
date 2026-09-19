@@ -23,7 +23,7 @@ export function ReviewStep({
       value:
         details.type === "delivery"
           ? `${details.addressLine}, ${details.area}`
-          : "The courtyard door, Al Fahidi",
+          : "The courtyard door, Demo District",
     },
     { label: "Name", value: details.name },
     { label: "Phone", value: details.phone },

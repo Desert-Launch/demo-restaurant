@@ -51,7 +51,7 @@ export function ConfirmationStep({ order }: { order: Order }) {
               <dd className="max-w-56 text-right text-salt-100">
                 {order.customer.address
                   ? `${order.customer.address.line1}, ${order.customer.address.area}`
-                  : "The courtyard door, Al Fahidi"}
+                  : "The courtyard door, Demo District"}
               </dd>
             </div>
             <div className="flex justify-between gap-4">

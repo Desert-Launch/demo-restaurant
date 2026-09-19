@@ -96,7 +96,7 @@ export function AdminSidebar() {
         <Link href="/admin" className="flex items-center gap-2.5 rounded-sm">
           <Khatim className="size-5 text-saffron-500" />
           <span className="font-display text-base font-semibold text-salt-50">
-            Saffron <span className="text-saffron-500">&amp;</span> Oud
+            Demo <span className="text-saffron-500">Restaurant</span>
           </span>
         </Link>
       </div>

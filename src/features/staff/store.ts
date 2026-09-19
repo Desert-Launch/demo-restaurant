@@ -8,17 +8,17 @@ import type { StaffMember } from "@/types";
 export const STAFF_ROSTER: StaffMember[] = [
   {
     id: "staff_salim",
-    name: "Salim Al Marri",
+    name: "Manager 1",
     role: "Restaurant manager",
-    initials: "SM",
+    initials: "M1",
   },
-  { id: "staff_yasmin", name: "Yasmin Farah", role: "Host", initials: "YF" },
-  { id: "staff_nour", name: "Nour Haddad", role: "Head chef", initials: "NH" },
+  { id: "staff_yasmin", name: "Host 1", role: "Host", initials: "H1" },
+  { id: "staff_nour", name: "Chef 1", role: "Head chef", initials: "C1" },
   {
     id: "staff_marco",
-    name: "Marco Ferreira",
+    name: "Chef 2",
     role: "On the pass",
-    initials: "MF",
+    initials: "C2",
   },
 ];
 

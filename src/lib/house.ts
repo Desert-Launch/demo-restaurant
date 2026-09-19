@@ -8,19 +8,20 @@
  */
 
 export const HOUSE = {
-  name: "Saffron & Oud",
+  name: "Demo Restaurant",
   tagline: "Levantine and Emirati dining",
   /** Deliberately a placeholder — no real address, no map embed. */
   address: {
-    line1: "House 14, Al Fahidi Historical District",
-    line2: "Bur Dubai",
+    line1: "1 Demo Street",
+    line2: "Demo District",
     city: "Dubai, United Arab Emirates",
   },
-  phone: "+971 4 555 0142",
-  email: "hello@saffronandoud.ae",
+  // Deliberately undialable: a demo must never ring a real line.
+  phone: "+971 4 555 0xxx",
+  email: "hello@example.com",
   /** Where the room actually is, in words rather than on a map. */
   directions:
-    "Off the courtyard behind the wind-tower houses, five minutes from Al Fahidi metro. Valet on the corner after 18:00.",
+    "Off the courtyard behind the old houses, five minutes from the metro. Valet on the corner after 18:00.",
 } as const;
 
 export interface ServiceWindow {
@@ -57,15 +58,16 @@ export const OPENING_HOURS = [
 ] as const;
 
 /** Areas the kitchen delivers to. Used by the checkout address step. */
+// Generic on purpose — a demo's delivery map should not read as a real one.
 export const DELIVERY_AREAS = [
-  "Al Fahidi",
-  "Bur Dubai",
-  "Downtown Dubai",
-  "Business Bay",
-  "Jumeirah 1",
-  "Deira",
-  "Al Barsha",
-  "Dubai Marina",
+  "Demo District 1",
+  "Demo District 2",
+  "Demo District 3",
+  "Demo District 4",
+  "Demo District 5",
+  "Demo District 6",
+  "Demo District 7",
+  "Demo District 8",
 ] as const;
 
 export type DeliveryArea = (typeof DELIVERY_AREAS)[number];

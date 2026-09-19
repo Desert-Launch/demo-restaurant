@@ -70,7 +70,7 @@ export function Navbar() {
             <SheetContent side="right" className="w-[88vw] max-w-sm">
               <SheetHeader>
                 <SheetTitle className="font-display text-2xl">
-                  Saffron &amp; Oud
+                  Demo Restaurant
                 </SheetTitle>
               </SheetHeader>
               <nav aria-label="Main" className="flex flex-col gap-1 px-4">

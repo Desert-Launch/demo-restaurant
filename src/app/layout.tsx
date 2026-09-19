@@ -31,8 +31,8 @@ const mono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Saffron & Oud — Levantine and Emirati dining in Dubai",
-    template: "%s · Saffron & Oud",
+    default: "Demo Restaurant — Levantine and Emirati dining in Dubai",
+    template: "%s · Demo Restaurant",
   },
   // Share preview, robots, canonical host and the link back to the studio.
   ...demoMetadata(),

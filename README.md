@@ -1,6 +1,6 @@
-# Saffron & Oud
+# Demo Restaurant
 
-A frontend-only demo for a fictional Levantine and Emirati restaurant in Al Fahidi, Dubai. It covers the public site, table reservations, online ordering, and the staff view the room is run from.
+A frontend-only demo for a fictional Levantine and Emirati restaurant in Dubai. It covers the public site, table reservations, online ordering, and the staff view the room is run from.
 
 There is no backend, no database and no auth. Everything is in memory.
 

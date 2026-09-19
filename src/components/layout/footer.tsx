@@ -32,12 +32,12 @@ export function Footer() {
             <div className="flex items-center gap-2.5">
               <Khatim className="size-6 text-saffron-500" />
               <span className="font-display text-lg font-semibold tracking-tight text-salt-50">
-                Saffron <span className="text-saffron-500">&amp;</span> Oud
+                Demo <span className="text-saffron-500">Restaurant</span>
               </span>
             </div>
             <p className="mt-4 max-w-xs text-sm text-salt-400">
               Charcoal grills, cold mezze and saffron rice, served in a
-              courtyard house in Al Fahidi.
+              courtyard house in Dubai.
             </p>
           </div>
 
