@@ -12,6 +12,8 @@ export const DEMO = {
   /** Latin-only name for the share-preview image, whose default font has no Arabic. */
   latinName: "Demo Restaurant",
   url: "https://restaurant.demos.desertlaunch.dev",
+  /** The staff side. The demo bar's switch opens it from every public page. */
+  adminPath: "/admin",
   /** Language of the bar and the metadata. Typed as the union so the shared
    *  code that handles both languages stays identical in every demo. */
   lang: "en" as DemoLang,
@@ -24,7 +26,7 @@ export const DEMO = {
     "A working demo of a restaurant website with its staff view, by Desert Launch: table reservations that show real availability for your party size, online ordering, and the reservation book, the pass and the menu in one place. Fictional restaurant, sample data.",
   /** Plain statement that the business is invented. */
   fiction:
-    "A fictional business: the names, prices, address and phone numbers are invented, and the data is sample data that resets on refresh.",
+    "A fictional business: the names, prices, address and phone numbers are invented, and the data is sample data. What a visitor changes is saved only in their own browser, for the day.",
   features: [
       "Table reservations with availability derived per party size and seating time",
       "Online ordering for collection or delivery",

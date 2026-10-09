@@ -72,8 +72,8 @@ export function ResetDemoData() {
     <div className="rounded-lg border border-oud-700 bg-oud-850 p-4">
       <p className="sf-rail">Demo data</p>
       <p className="mt-2 text-xs text-salt-400">
-        Everything you change lives in memory for this tab. Reset puts the book,
-        the board and the menu back to the seed.
+        Everything you change is saved in this browser for today. Reset puts
+        the book, the board and the menu back to the seed.
       </p>
       <Button
         variant="outline"

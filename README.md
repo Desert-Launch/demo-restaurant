@@ -2,7 +2,7 @@
 
 A frontend-only demo for a fictional Levantine and Emirati restaurant in Dubai. It covers the public site, table reservations, online ordering, and the staff view the room is run from.
 
-There is no backend, no database and no auth. Everything is in memory.
+There is no backend, no database and no auth. Everything lives in the visitor's browser.
 
 ## Run it
 
@@ -58,9 +58,11 @@ Money is an integer number of fils (1 AED = 100 fils) everywhere, formatted only
 
 The room is eleven tables and forty covers, and the seed concentrates bookings where a restaurant actually fills. Tomorrow at 20:00 takes every table; today at 20:00 leaves exactly one two-top, so a couple can still book it and a party of three cannot.
 
-**Persistence:** add / edit / delete survive navigation for the whole browser session. A hard refresh re-evaluates the module and reseeds the day.
+**Persistence:** `persist.ts` saves the store to `localStorage` after every write and loads it back when the app starts, so a reservation or an order placed on the guest side is still in the book after a refresh or in a new tab. A dashboard open in another tab refetches as soon as the guest side writes (the providers listen for it). A saved copy is kept for the day it was seeded on; a new day, or a copy whose `version` no longer matches the one in `db.ts`, starts from a fresh seed. **Bump that `version` whenever the shape of the stored data changes.** `persist.ts` is identical in every demo. The cart's lines are kept in `sessionStorage`, so a refresh mid-checkout keeps the order; the providers rehydrate it after mount so the server and first client render agree.
 
-**Resetting:** the admin sidebar footer has a **Reset demo data** button. It calls `resetStore()`, clears the cart and drops every cached query.
+**Resetting:** the admin sidebar footer has a **Reset demo data** button. It calls `resetStore()`, which reseeds and overwrites the saved copy, clears the cart and drops every cached query. A refresh no longer resets anything.
+
+**Switching sides:** the Desert Launch bar at the top of every page carries the switch between the two sides — **Open the dashboard** on the guest side, **Back to the site** in the staff view (`src/components/layout/demo-side-switch.tsx`).
 
 **The deliberate failure:** `cancelReservation` and `cancelOrder` each throw roughly 10% of the time (`CANCEL_FAILURE_RATE` in the respective `api.ts`). The row or ticket moves to Cancelled optimistically, then rolls back with an error toast when the write fails. Raise the constant to `1` to demo the rollback on purpose.
 

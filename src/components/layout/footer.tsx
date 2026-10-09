@@ -80,7 +80,8 @@ export function Footer() {
 
         <p className="sf-seam mt-14 pt-6 text-xs text-salt-400">
           A fictional restaurant, built as a demo. Nothing here is emailed,
-          charged or sent anywhere, and the data resets when you refresh.
+          charged or sent anywhere; what you change is saved only in this
+          browser.
         </p>
       </PageContainer>
     </footer>

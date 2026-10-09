@@ -2,9 +2,9 @@
  * The demo "backend".
  *
  * A module-level singleton holding the menu, the reservation book and the
- * order board. No React, no framework imports, no persistence — the data
- * re-seeds whenever the module is evaluated fresh (a hard refresh), and every
- * add / edit / delete survives for the rest of the browser session.
+ * order board. No React, no framework imports. Every add / edit / delete is
+ * saved to this browser by `persist.ts`, so a reservation or an order placed
+ * on the guest side is still in the book after a refresh or in a new tab.
  *
  * Nothing outside `src/lib/store` and the feature `api.ts` files may import
  * this module. UI reaches it through: component → feature hook → api.ts → store.
@@ -20,13 +20,18 @@ import type {
   Reservation,
   ReservationStatus,
 } from "@/types";
-import { createSeedMenu, createSeedOrders, createSeedReservations } from "./seed";
+import { persistedStore } from "./persist";
+import {
+  createSeedMenu,
+  createSeedOrders,
+  createSeedReservations,
+} from "./seed";
 
 interface Database {
   menu: MenuItem[];
   reservations: Reservation[];
   orders: Order[];
-  /** Bumped per write so references stay sequential and unique in a session. */
+  /** Bumped per write so references stay sequential and unique; saved with the rest. */
   nextReference: number;
 }
 
@@ -42,11 +47,33 @@ function createDatabase(): Database {
   };
 }
 
-let db: Database = createDatabase();
+const persisted = persistedStore<Database>({
+  version: 1,
+  seed: createDatabase,
+  isValid: (data) => {
+    const saved = data as Partial<Database> | null;
+    return (
+      Array.isArray(saved?.menu) &&
+      Array.isArray(saved?.reservations) &&
+      Array.isArray(saved?.orders) &&
+      typeof saved?.nextReference === "number"
+    );
+  },
+});
+
+let db: Database = persisted.load();
+persisted.onExternalChange((data) => {
+  db = data;
+});
+
+/** Every write ends here. */
+function commit(): void {
+  persisted.save(db);
+}
 
 /** Wired to the reset control in the admin sidebar footer. */
 export function resetStore(): void {
-  db = createDatabase();
+  db = persisted.reset();
 }
 
 export function newId(): string {
@@ -60,6 +87,7 @@ export function newId(): string {
 export function nextReference(): string {
   const reference = `SO-${db.nextReference}`;
   db.nextReference += 1;
+  commit();
   return reference;
 }
 
@@ -76,6 +104,7 @@ export function selectMenuItem(id: string): MenuItem | undefined {
 
 export function insertMenuItem(item: MenuItem): MenuItem {
   db.menu = [item, ...db.menu];
+  commit();
   return structuredClone(item);
 }
 
@@ -88,6 +117,7 @@ export function patchMenuItem(
 
   const updated: MenuItem = { ...db.menu[index], ...changes };
   db.menu = db.menu.map((item, i) => (i === index ? updated : item));
+  commit();
   return structuredClone(updated);
 }
 
@@ -95,6 +125,7 @@ export function removeMenuItem(id: string): void {
   const exists = db.menu.some((item) => item.id === id);
   if (!exists) throw new Error(`No menu item with id ${id}`);
   db.menu = db.menu.filter((item) => item.id !== id);
+  commit();
 }
 
 /* --- Reservations --------------------------------------------------------- */
@@ -110,6 +141,7 @@ export function selectReservation(id: string): Reservation | undefined {
 
 export function insertReservation(reservation: Reservation): Reservation {
   db.reservations = [reservation, ...db.reservations];
+  commit();
   return structuredClone(reservation);
 }
 
@@ -126,6 +158,7 @@ export function patchReservation(
   db.reservations = db.reservations.map((reservation, i) =>
     i === index ? updated : reservation,
   );
+  commit();
   return structuredClone(updated);
 }
 
@@ -135,6 +168,7 @@ export function removeReservation(id: string): void {
   db.reservations = db.reservations.filter(
     (reservation) => reservation.id !== id,
   );
+  commit();
 }
 
 /** Timestamps that must be stamped whenever a reservation's status changes. */
@@ -163,6 +197,7 @@ export function selectOrder(id: string): Order | undefined {
 
 export function insertOrder(order: Order): Order {
   db.orders = [order, ...db.orders];
+  commit();
   return structuredClone(order);
 }
 
@@ -172,6 +207,7 @@ export function patchOrder(id: string, changes: Partial<Order>): Order {
 
   const updated: Order = { ...db.orders[index], ...changes };
   db.orders = db.orders.map((order, i) => (i === index ? updated : order));
+  commit();
   return structuredClone(updated);
 }
 

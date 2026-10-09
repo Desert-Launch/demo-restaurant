@@ -21,8 +21,9 @@ export function useDashboard() {
 }
 
 /**
- * Puts the demo back to the state it was in when the tab was opened: reseed the
- * store, empty the cart, and drop every cached query so nothing stale survives.
+ * Puts the demo back to the seed: reseed the store (overwriting the copy saved
+ * in this browser), empty the cart, and drop every cached query so nothing
+ * stale survives.
  */
 export function useResetDemoData() {
   const queryClient = useQueryClient();
